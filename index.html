@@ -5,13 +5,8 @@
         <title>StatiCrypt: Password protect static HTML</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-            integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-            crossorigin="anonymous"
-        />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js" integrity="sha512-X/YkDZyjTf4wyc2Vy16YGCPHwAY8rZJY+POgokZjQB2mhIRFJCckEGc6YyX9eNsPfn0PzThEuNs+uaomE5CO6A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <style>
             a.no-style {
                 color: inherit;
@@ -34,7 +29,7 @@
                 <div class="col-xs-12">
                     <h1>
                         StatiCrypt
-                        <div class="pull-right">
+                        <div class="float-end">
                             <iframe
                                 src="https://ghbtns.com/github-btn.html?user=robinmoisson&repo=staticrypt&type=star&size=large"
                                 frameborder="0"
@@ -50,10 +45,9 @@
                                 height="30px"
                             ></iframe>
                         </div>
-                        <br />
-                        <small>Password protect a static HTML page</small>
-                    </h1>
-                    <p>
+                    </h1><br />
+                    <h2>Password protect a static HTML page</h2>
+						<p>
                         StatiCrypt uses AES-256 with WebCrypto to encrypt your html string with your long password, in
                         your browser (client side).
                     </p>
@@ -73,7 +67,7 @@
                             <span id="toggle-concept-sign">►</span> HOW IT WORKS
                         </a>
                     </h4>
-                    <div id="concept" class="hidden">
+                    <div id="concept" class="collapse">
                         <p>
                             <b class="text-danger">Disclaimer</b> if you are an at-risk activist, or have extra
                             sensitive banking data, you should probably use something else!
@@ -157,7 +151,7 @@
                         <p>
                             <a href="#" id="toggle-extra-option">+ More options</a>
                         </p>
-                        <div id="extra-options" class="hidden">
+                        <div id="extra-options" class="collapse">
                             <div class="form-group">
                                 <label for="template_title">Page title</label>
                                 <input
@@ -243,7 +237,7 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-primary pull-right" type="submit">
+                        <button class="btn btn-primary float-end" type="submit">
                             Generate password protected HTML
                         </button>
                     </form>
@@ -1381,17 +1375,38 @@ exports.init = init;
                 e.preventDefault();
                 document.getElementById("extra-options").classList.toggle("hidden");
             });
+			
+			var extraOptions = document.getElementById('extra-options');
+var bsCollapse = new bootstrap.Collapse(extraOptions, {
+   toggle: false // Do not toggle the collapsible element automatically
+});
 
-            let isConceptShown = false;
-            document.getElementById("toggle-concept").addEventListener("click", function (e) {
-                e.preventDefault();
+document.getElementById("toggle-extra-option").addEventListener("click", function (e) {
+   e.preventDefault();
+   bsCollapse.toggle();
+});
 
-                isConceptShown = !isConceptShown;
 
-                document.getElementById("toggle-concept-sign").innerText = isConceptShown ? "▼" : "►";
+let isConceptShown = false;
+let appBSCollapse; // Rename the variable here
 
-                document.getElementById("concept").classList.toggle("hidden");
-            });
+document.getElementById("toggle-concept").addEventListener("click", function (e) {
+ e.preventDefault();
+
+ isConceptShown = !isConceptShown;
+
+ document.getElementById("toggle-concept-sign").innerText = isConceptShown ? "▼" : "►";
+
+ const conceptElement = document.getElementById('concept');
+ appBSCollapse = new bootstrap.Collapse(conceptElement, {
+  toggle: false // Do not toggle the collapsible element automatically
+ });
+
+ appBSCollapse.toggle();
+});
+
+
+
 
             /**
              * Browser specific download code.
