@@ -112,16 +112,17 @@
             <div class="row">
                 <div class="col-xs-12">
                     <form id="encrypt_form">
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input
-                                type="password"
-                                class="form-control"
-                                id="password"
-                                placeholder="Password (choose a long one!)"
-                            />
-                        </div>
-
+						<div class="form-group">
+						   <label for="password">Password (choose a strong one!)</label>
+						   <input
+							   type="password"
+							   class="form-control"
+							   id="password"
+							   placeholder="Password (choose a long one!)"
+						   />
+						   <input type="checkbox" id="toggle-password"> Show password
+						</div>
+						<br />
                         <div class="form-group">
                             <label for="unencrypted_html">HTML/string to encrypt</label>
                             <textarea
@@ -147,7 +148,7 @@
                                 </small>
                             </label>
                         </div>
-
+						<br />
                         <p>
                             <a href="#" id="toggle-extra-option">+ More options</a>
                         </p>
@@ -1377,36 +1378,33 @@ exports.init = init;
             });
 			
 			var extraOptions = document.getElementById('extra-options');
-var bsCollapse = new bootstrap.Collapse(extraOptions, {
-   toggle: false // Do not toggle the collapsible element automatically
-});
+			var bsCollapse = new bootstrap.Collapse(extraOptions, {
+			   toggle: false // Do not toggle the collapsible element automatically
+			});
 
-document.getElementById("toggle-extra-option").addEventListener("click", function (e) {
-   e.preventDefault();
-   bsCollapse.toggle();
-});
-
-
-let isConceptShown = false;
-let appBSCollapse; // Rename the variable here
-
-document.getElementById("toggle-concept").addEventListener("click", function (e) {
- e.preventDefault();
-
- isConceptShown = !isConceptShown;
-
- document.getElementById("toggle-concept-sign").innerText = isConceptShown ? "▼" : "►";
-
- const conceptElement = document.getElementById('concept');
- appBSCollapse = new bootstrap.Collapse(conceptElement, {
-  toggle: false // Do not toggle the collapsible element automatically
- });
-
- appBSCollapse.toggle();
-});
+			document.getElementById("toggle-extra-option").addEventListener("click", function (e) {
+			   e.preventDefault();
+			   bsCollapse.toggle();
+			});
 
 
+			let isConceptShown = false;
+			let appBSCollapse; // Rename the variable here
 
+			document.getElementById("toggle-concept").addEventListener("click", function (e) {
+			 e.preventDefault();
+
+			 isConceptShown = !isConceptShown;
+
+			 document.getElementById("toggle-concept-sign").innerText = isConceptShown ? "▼" : "►";
+
+			 const conceptElement = document.getElementById('concept');
+			 appBSCollapse = new bootstrap.Collapse(conceptElement, {
+			  toggle: false // Do not toggle the collapsible element automatically
+			 });
+
+			 appBSCollapse.toggle();
+			});
 
             /**
              * Browser specific download code.
@@ -1429,6 +1427,16 @@ document.getElementById("toggle-concept").addEventListener("click", function (e)
 
                 return true;
             });
+			
+			document.getElementById("toggle-password").addEventListener("change", function (e) {
+			   var passwordInput = document.getElementById("password");
+			   if (e.target.checked) {
+				   passwordInput.type = "text";
+			   } else {
+				   passwordInput.type = "password";
+			   }
+			});
+
         </script>
     </body>
 </html>
